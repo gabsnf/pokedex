@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Nome } from './imagens/nome.jsx'
+import { Nome } from './components/Slide/index.jsx'
 
 function App() {
 

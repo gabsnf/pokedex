@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import './nome.css'
+import { Moldura } from '../Moldura'
 
 export function Nome(){
 
@@ -12,27 +14,31 @@ export function Nome(){
 
     const maxImg = imagens.length 
 
+    const [slide, setSlide] = useState()
 
-    function slide(){
-        imagens[now].classList.remove('primeira')
+
+    function handleSetSlide(){
+        if(now > 3){
+            now = 0
+        }
+        setSlide(imagens[now])
         now++
-        if(now >= maxImg)
-        now = 0
-        imagens[now].classList.add('primeira')
+
     }
 
  function start(){
         setInterval(() => {
-            slide()
+            handleSetSlide()
         }, 2000)
     }
 
 
     return(
         <div id="slide">
-            <img src={imagens[0]} className="primeira" alt="" />
-            <img src={imagens[1]} alt="" />
-            <img src={imagens[2]} alt="" />
+            <Moldura 
+            slide = {slide}
+            />
+           
             <button id='go' onClick={start}>go</button>
         </div>
         

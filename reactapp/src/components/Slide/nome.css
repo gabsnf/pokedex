@@ -1,0 +1,25 @@
+#slide{
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 20px;
+
+}
+
+#slide img{
+    height: 300px;
+    position: absolute;
+    opacity: 0;
+}
+
+#slide img.primeira{
+    opacity: 1;
+}
+
+#slide button{
+    margin-top: 300px;
+}
