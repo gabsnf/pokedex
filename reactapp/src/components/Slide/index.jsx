@@ -12,8 +12,6 @@ export function Nome(){
         '../src/imagens/img3.png',
     ]
 
-    const maxImg = imagens.length 
-
     const [slide, setSlide] = useState()
 
 
@@ -29,7 +27,7 @@ export function Nome(){
  function start(){
         setInterval(() => {
             handleSetSlide()
-        }, 2000)
+        }, 600)
     }
 
 
