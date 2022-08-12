@@ -7,9 +7,9 @@ export function Nome(){
     let now = 0
 
     const imagens = [
-        '../src/imagens/img1.png',
-        '../src/imagens/img2.png',
-        '../src/imagens/img3.png',
+        '../src/assets/img1.png',
+        '../src/assets/img2.png',
+        '../src/assets/img3.png',
     ]
 
     const [slide, setSlide] = useState()
