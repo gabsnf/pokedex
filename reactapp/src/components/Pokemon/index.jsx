@@ -1,7 +1,7 @@
 import './styles.css'
 
 
-export function Moldura(props){
+export function Pokemon(setPokemons, pokemons){
     return(
         <div id='moldura'>
          <img src={props.slide} className="primeira" alt="" />

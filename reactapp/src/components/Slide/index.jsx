@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './nome.css'
-import { Moldura } from '../Moldura'
+import { Pokemon } from '../Pokemon'
 
 export function Nome(){
 
@@ -33,7 +33,7 @@ export function Nome(){
 
     return(
         <div id="slide">
-            <Moldura 
+            <Pokemon 
             slide = {slide}
             />
            
