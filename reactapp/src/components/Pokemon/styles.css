@@ -4,13 +4,14 @@
 }
 
 #moldura{
-    background-color: gray;
-    height: 500px;
-    width: 1000px;
-    border-radius: 30px;
+    background-color: blue;
+    width: 150px;
+    height: 200px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 10px 15px;
 }
 
 /* #moldura{

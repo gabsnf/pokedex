@@ -1,48 +1,44 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { Pokemon } from './components/Pokemon/index.jsx'  
-import { Nome } from './components/Slide/index.jsx'
+import { useEffect } from "react";
+import { useState } from "react";
+import {Pokemon} from "./components/Pokemon";
 
+import { Nome } from "./components/Slide/index.jsx";
 
 function App() {
+  const [pokemons, setPokemons] = useState([]);
 
-  const [pokemons, setPokemons] = useState([])
+  async function getPokemon() {
+    const resultado = await fetch("https://pokeapi.co/api/v2/pokemon", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  async function getPokemon(){
-    const resultado = await fetch(
-      "https://pokeapi.co/api/v2/pokemon",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        }
-      }
-    )
-
-
-      let allPokemon = await resultado.json()
-      console.log(allPokemon) 
-      console.log(allPokemon.results[0].name)
-      setPokemons(allPokemon)
-      return(
-        <div>
-      {
-      pokemons.map((pokemon) => {
-        return <Pokemon key={pokemon.id} info={pokemon} setPokemons={setPokemons} pokemons={pokemons} />
-      })
-    }
-      </div>
-      )
-
+    let allPokemon = await resultado.json();
+    setPokemons(allPokemon.results);
   }
-  getPokemon()
 
+  useEffect(() => {
+    console.log(pokemons);
+  }, [pokemons]);
+
+  useEffect(() => {
+    getPokemon();
+  }, []);
 
   return (
-    <div>
-      <Nome />
+    <div style={{display: "flex", flexDirection: "row", width: "100%", flexWrap: "wrap"}}>
+
+      {pokemons &&
+        pokemons.map((item, index) => (
+
+          <Pokemon key={index} name={item.name} /> 
+
+        ))}
+
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
