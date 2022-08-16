@@ -5,7 +5,9 @@
 
 
 body{
-    background-image: url('./assets/backPoke.png');
-    display: flex;
-    justify-content: center;
+    background: url("./assets/backPoke.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
