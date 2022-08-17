@@ -1,53 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Specified } from "../Specified/Specified";
 import "./styles.css";
 
-export function Pokemon({ name }, index) {
+export function Pokemon({ name, url }) {
+  const [id, setId] = useState();
+  const [card, setCard] = useState();
+
+  function imagens() {
+    let array = url.split("/");
+    let id = array[6];
+    setId(id);
+  }
+
   async function info() {
-    const resultado = await fetch("https://pokeapi.co/api/v2/pokemon/" + name, {
+    const resultado = await fetch("https://pokeapi.co/api/v2/pokemon/" + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
     let infos = await resultado.json();
+    setCard(infos);
     console.log(infos);
   }
 
-  async function imgs() {
-    const resultado = await fetch(
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
-        name,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    let fotos = resultado.json();
-    console.log(fotos);
-  }
-
   useEffect(() => {
-    info();
+    imagens();
   }, []);
 
+  // console.log(id);
+
   return (
-    <div
-      id="moldura"
-      onClick={() => {
-        if (name) {
-          info();
-          console.log(info);
-          <Link to={`/pokemon/${name}`}>Name</Link>;
-        }
-      }}
-    >
-      {name}
-    </div>
+    <Link to={`/pokemon/${name}`}>
+      <div
+        id="moldura"
+        onClick={() => {
+          if (name) {
+            info();
+          }
+        }}
+      >
+        {name}
+        <img
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+            id + ".png"
+          }`}
+        ></img>
+      </div>
+      {card &&
+        card.map((item, index) => (
+          <Specified key={index} height={item.height} />
+        ))}
+    </Link>
   );
 }
