@@ -20,32 +20,17 @@ function Home() {
     let allPokemon = await resultado.json();
     setPokemons(allPokemon.results);
   }
-
-  // async function imgs(id) {
-  //   const resultado = await fetch(
-  //     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png",
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   );
-
-  //   let fotos = resultado.json();
-  //   console.log(fotos);
-  // }
-
-  useEffect(() => {
-    console.log(pokemons);
-  }, [pokemons]);
-
+  // useEffect(() => {
+  //   console.log(pokemons);
+  // }, [pokemons]);
+  console.log(pokemons[0]);
   useEffect(() => {
     getPokemon();
   }, []);
 
   return (
     <div
+      id="principal"
       style={{
         display: "flex",
         flexDirection: "row",
@@ -53,10 +38,9 @@ function Home() {
         flexWrap: "wrap",
       }}
     >
-      {pokemons &&
-        pokemons.map((item, index) => (
-          <Pokemon key={index} name={item.name} url={item.url} />
-        ))}
+      {pokemons.map((item, index) => (
+        <Pokemon key={index} name={item.name} url={item.url} />
+      ))}
     </div>
   );
 }
