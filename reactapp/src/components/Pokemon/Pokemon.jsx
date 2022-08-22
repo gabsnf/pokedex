@@ -29,7 +29,7 @@ export function Pokemon({ name, url }) {
           }
         }}
       >
-        {name}
+        <h2>{name}</h2>
         <img
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             id + ".png"

@@ -7,9 +7,18 @@
 .data-box {
   padding: 5px 7px;
   box-shadow: 1px 1px 3px black;
-  margin: 5px 0;
+  margin: 8px 0;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #e2e2e2;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+}
+
+button {
+  border-radius: 15px;
+  height: 40px;
+  width: 80px;
+}
+img {
+  height: 190px;
 }

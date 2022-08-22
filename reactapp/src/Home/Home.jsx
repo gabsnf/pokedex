@@ -23,7 +23,6 @@ function Home() {
   // useEffect(() => {
   //   console.log(pokemons);
   // }, [pokemons]);
-  console.log(pokemons[0]);
   useEffect(() => {
     getPokemon();
   }, []);

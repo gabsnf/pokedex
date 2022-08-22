@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Specified.css";
 
 export function Specified() {
   const params = useParams();
   const [pokeInfo, setPokeInfo] = useState({});
+  const [evolves, setEvolves] = useState();
 
   useEffect(() => {
     async function getEvolve() {
@@ -19,7 +20,10 @@ export function Specified() {
         }
       );
       let evolutions = resultado.json();
-      console.log(evolutions);
+      let evolName = evolutions;
+      console.log(evolName);
+
+      setEvolves(evolutions);
     }
     getEvolve();
   }, []);
@@ -66,14 +70,14 @@ export function Specified() {
         if (pokeInfoName == "forms") {
           return (
             <div className="data-box">
-              <h3>Forma</h3>
+              <h3>Forma:</h3>
               {pokeInfoStatus[0].name}
             </div>
           );
         } else if (pokeInfoName === "stats") {
           return (
             <div className="data-box">
-              <h3>Status</h3>
+              <h3>Status:</h3>
               {pokeInfoStatus.map((stats) => (
                 <>
                   <div className="row">
@@ -96,6 +100,11 @@ export function Specified() {
           );
         }
       })}
+      {/* {evolves.map((evolves, index) => {})} */}
+
+      <Link to={"/"}>
+        <button>Back</button>
+      </Link>
     </div>
   );
 }
