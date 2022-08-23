@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Specified } from "../Specified/Specified";
 import "./styles.css";
 
 export function Pokemon({ name, url }) {

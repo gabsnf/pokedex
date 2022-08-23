@@ -6,12 +6,30 @@ import "./Specified.css";
 export function Specified() {
   const params = useParams();
   const [pokeInfo, setPokeInfo] = useState({});
-  const [evolves, setEvolves] = useState();
+  const [prevEvolves, setEvolves] = useState([]);
+  const [evolId, setEvolID] = useState([]);
+  const [nextEvolve, setNextEvolve] = useState([]);
+
+  async function evolveLine() {
+    const resultado = await fetch(
+      "https://pokeapi.co/api/v2/evolution-chain/" + evolId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    let nextEvolve = await resultado.json();
+    console.log(nextEvolve.chain.evolves_to[0].evolves_to[0].species.name);
+    let full = nextEvolve.chain.evolves_to[0].evolves_to[0].species.name;
+    setNextEvolve(full);
+  }
 
   useEffect(() => {
     async function getEvolve() {
       const resultado = await fetch(
-        "https://pokeapi.co/api/v2/evolution-chain/" + params.id,
+        "https://pokeapi.co/api/v2/pokemon-species/" + params.id,
         {
           method: "GET",
           headers: {
@@ -19,14 +37,18 @@ export function Specified() {
           },
         }
       );
-      let evolutions = resultado.json();
-      let evolName = evolutions;
-      console.log(evolName);
-
-      setEvolves(evolutions);
+      let evolutions = await resultado.json();
+      let prevEvolve = evolutions.evolves_from_species.name;
+      let evol = evolutions.evolution_chain.url;
+      console.log(evol);
+      let id = evol.split("/")[6];
+      setEvolves(prevEvolve);
+      setEvolID(id);
+      evolveLine();
     }
+    console.log(prevEvolves);
     getEvolve();
-  }, []);
+  }, [pokeInfo]);
 
   useEffect(() => {
     async function info() {
@@ -72,6 +94,10 @@ export function Specified() {
             <div className="data-box">
               <h3>Forma:</h3>
               {pokeInfoStatus[0].name}
+              <h4>Previous form:</h4>
+              {prevEvolves}
+              <h4>Next form:</h4>
+              {nextEvolve}
             </div>
           );
         } else if (pokeInfoName === "stats") {
@@ -100,7 +126,6 @@ export function Specified() {
           );
         }
       })}
-      {/* {evolves.map((evolves, index) => {})} */}
 
       <Link to={"/"}>
         <button>Back</button>
