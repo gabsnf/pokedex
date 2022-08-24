@@ -4,6 +4,11 @@ import "./styles.css";
 
 export function Pokemon({ name, url }) {
   let id = url.split("/")[6];
+  const paletaDeCores = {
+    fogo: "#FF0000",
+    voador: "#C0C0C0",
+    eletricidade: "#FFFF00",
+  };
 
   async function info() {
     const resultado = await fetch(url, {

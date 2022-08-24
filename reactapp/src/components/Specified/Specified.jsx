@@ -7,10 +7,9 @@ export function Specified() {
   const params = useParams();
   const [pokeInfo, setPokeInfo] = useState({});
   const [prevEvolves, setEvolves] = useState([]);
-  const [evolId, setEvolID] = useState([]);
-  const [nextEvolve, setNextEvolve] = useState([]);
+  const [nextEvolve, setNextEvolve] = useState("");
 
-  async function evolveLine() {
+  async function prevForm(evolId) {
     const resultado = await fetch(
       "https://pokeapi.co/api/v2/evolution-chain/" + evolId,
       {
@@ -20,9 +19,10 @@ export function Specified() {
         },
       }
     );
-    let nextEvolve = await resultado.json();
-    console.log(nextEvolve.chain.evolves_to[0].evolves_to[0].species.name);
-    let full = nextEvolve.chain.evolves_to[0].evolves_to[0].species.name;
+    let nextEvolves = await resultado.json();
+    console.log(nextEvolves);
+    // console.log(nextEvolves.chain.evolves_to[0].evolves_to[0].species.name);
+    let full = nextEvolves.chain.evolves_to[0].evolves_to[0].species.name;
     setNextEvolve(full);
   }
 
@@ -38,16 +38,22 @@ export function Specified() {
         }
       );
       let evolutions = await resultado.json();
-      let prevEvolve = evolutions.evolves_from_species.name;
+      console.log(evolutions);
+      let prevEvolve = evolutions.evolves_from_species;
       let evol = evolutions.evolution_chain.url;
+      // console.log(evol);
+      let idChain = evol.split("/")[6];
+      if (prevEvolve) {
+        setEvolves(prevEvolve.name);
+      }
       console.log(evol);
-      let id = evol.split("/")[6];
-      setEvolves(prevEvolve);
-      setEvolID(id);
-      evolveLine();
+      console.log(idChain);
+      await prevForm(idChain);
+      // console.log(evolId);
     }
-    console.log(prevEvolves);
     getEvolve();
+
+    // console.log(prevEvolves);
   }, [pokeInfo]);
 
   useEffect(() => {
@@ -62,7 +68,6 @@ export function Specified() {
         }
       );
       let infos = await resultado.json();
-      // console.log(JSON.stringify(infos, null, 2));
       setPokeInfo(infos);
     }
     info();
