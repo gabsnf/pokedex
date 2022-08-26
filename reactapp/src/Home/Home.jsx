@@ -5,6 +5,7 @@ import "./Home.css";
 
 function Home() {
   const [pokemons, setPokemons] = useState([]);
+  const [busca, setBusca] = useState("");
 
   async function getPokemon() {
     const resultado = await fetch(
@@ -28,18 +29,25 @@ function Home() {
   }, []);
 
   return (
-    <div
-      id="principal"
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
-        flexWrap: "wrap",
-      }}
-    >
-      {pokemons.map((item, index) => (
-        <Pokemon key={index} name={item.name} url={item.url} />
-      ))}
+    <div>
+      <input
+        type="text"
+        value={busca}
+        onChange={(event) => setBusca(event.target.value)}
+      />
+      <div
+        id="principal"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          flexWrap: "wrap",
+        }}
+      >
+        {pokemons.map((item, index) => (
+          <Pokemon key={index} name={item.name} url={item.url} />
+        ))}
+      </div>
     </div>
   );
 }

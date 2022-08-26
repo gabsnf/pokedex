@@ -6,7 +6,7 @@ import "./Specified.css";
 export function Specified() {
   const params = useParams();
   const [pokeInfo, setPokeInfo] = useState({});
-  const [prevEvolves, setEvolves] = useState([]);
+  const [prevEvolves, setEvolves] = useState("");
   const [nextEvolve, setNextEvolve] = useState("");
 
   async function prevForm(evolId) {
@@ -22,7 +22,7 @@ export function Specified() {
     let nextEvolves = await resultado.json();
     console.log(nextEvolves);
     // console.log(nextEvolves.chain.evolves_to[0].evolves_to[0].species.name);
-    let full = nextEvolves.chain.evolves_to[0].evolves_to[0].species.name;
+    let full = nextEvolves.chain.evolves_to[0].species.name;
     setNextEvolve(full);
   }
 
